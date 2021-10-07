@@ -1,17 +1,17 @@
+import React from "react";
 import "@testing-library/jest-dom";
-import thunk from "redux-thunk";
-import configureStore from "mock-store";
-import { mount, shallow } from "enzyme";
+import { shallow, mount, render } from "enzyme";
 import { Provider } from "react-redux";
 import { LoginScreen } from "../../../components/auth/LoginScreen";
 
-const middlewares = [thunk];
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
 
-const mockStore = configureStore(middlewares); //aca hago un store falso
+const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const mockStore = configureStore(middlewares);
 const initialState = {};
 
 const store = mockStore(initialState);
-
 store.dispatch = jest.fn(); //funcion o de simulacion
 
 const wrapper = mount(
@@ -22,5 +22,7 @@ const wrapper = mount(
 );
 
 describe("Pruebas en el Login Screan", () => {
-  test("Debe renderizarse correctamente", () => {});
+  test("Debe renderizarse correctamente", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 });
